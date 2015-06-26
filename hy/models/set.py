@@ -26,8 +26,10 @@ class HySet(HyList):
     Hy set (actually a list that pretends to be a set)
     """
 
-    def __init__(self, keys):
-        super(HySet, self).__init__(list(sorted(keys)))
+    def __init__(self, items):
+        items = sorted(items)
+        items = list(reduce(lambda r, v: v in r and r or r+[v], items, []))
+        super(HySet, self).__init__(items)
 
     def __repr__(self):
         return "#{%s}" % (" ".join([repr(x) for x in self]))
