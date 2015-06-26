@@ -19,6 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 from hy.models.list import HyList
+from functools import reduce
 
 
 class HySet(HyList):
