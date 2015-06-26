@@ -18,22 +18,16 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-
-from hy.version import __version__, __appname__  # NOQA
-
-
-from hy.models.expression import HyExpression  # NOQA
-from hy.models.integer import HyInteger  # NOQA
-from hy.models.keyword import HyKeyword  # NOQA
-from hy.models.complex import HyComplex  # NOQA
-from hy.models.string import HyString  # NOQA
-from hy.models.symbol import HySymbol  # NOQA
-from hy.models.float import HyFloat  # NOQA
-from hy.models.dict import HyDict  # NOQA
-from hy.models.list import HyList  # NOQA
-from hy.models.set import HySet  # NOQA
-from hy.models.cons import HyCons  # NOQA
+from hy.models.list import HyList
 
 
-import hy.importer  # NOQA
-# we import for side-effects.
+class HySet(HyList):
+    """
+    Hy set (actually a list that pretends to be a set)
+    """
+
+    def __init__(self, keys):
+        super(HySet, self).__init__(list(sorted(keys)))
+
+    def __repr__(self):
+        return "#{%s}" % (" ".join([repr(x) for x in self]))
