@@ -1978,10 +1978,26 @@ class HyASTCompiler(object):
     @builds(HySet)
     def compile_set(self, expression):
         elts, ret, _ = self._compile_collect(expression)
-        ret += ast.Set(elts=elts,
-                       ctx=ast.Load(),
-                       lineno=expression.start_line,
-                       col_offset=expression.start_column)
+        if PY27:
+            ret += ast.Set(elts=elts,
+                           ctx=ast.Load(),
+                           lineno=expression.start_line,
+                           col_offset=expression.start_column)
+        else:
+            ret += ast.Call(func=ast.Name(id='set',
+                                          ctx=ast.Load(),
+                                          lineno=expression.start_line,
+                                          col_offset=expression.start_column),
+                            args=[
+                                ast.List(elts=elts,
+                                         ctx=ast.Load(),
+                                         lineno=expression.start_line,
+                                         col_offset=expression.start_column)],
+                            keywords=[],
+                            starargs=None,
+                            kwargs=None,
+                            lineno=expression.start_line,
+                            col_offset=expression.start_column)
         return ret
 
     @builds("lambda")
