@@ -37,6 +37,14 @@
   (if (not (numeric? x))
     (raise (TypeError (.format "{0!r} is not a number" x)))))
 
+(defn assoc [tgt &rest args]
+  (if (not (even? (len args)))
+    (raise (TypeError "expected an even number of key-value pairs")))
+  (setv it (iter args))
+  (for [[k v] (zip it it)]
+    (assoc* tgt k v))
+  tgt)
+
 (defn butlast [coll]
   "Returns coll except of last element."
   (drop-last 1 coll))
@@ -416,7 +424,7 @@
         (catch [] (string value))))))
 
 (def *exports* '[Botsbuildbots
-                 butlast calling-module-name coll? cons cons? cycle
+                 assoc butlast calling-module-name coll? cons cons? cycle
                  dec distinct disassemble drop drop-last drop-while empty? even?
                  every? first filter filterfalse flatten float? gensym identity
                  inc input instance? integer integer? integer-char? interleave
