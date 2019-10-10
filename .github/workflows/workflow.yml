@@ -30,4 +30,4 @@ jobs:
         run: pytest
 
       - name: Run coveralls
-        run: make coveralls
+        run: coveralls
