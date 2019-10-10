@@ -1,0 +1,29 @@
+name: Run unit and coverage tests
+on:
+  - push:
+      paths-ignore:
+        - 'docs/**'
+  - pull_request
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        python:
+          - 'python:3.5'
+          - 'python:3.6'
+          - 'python:3.7'
+          - 'python:3.8'
+          - 'pypy:3.5'
+    container: '${{matrix.python}}-slim'
+    steps:
+      - name: Install dependencies
+        run: |
+          pip3 install -r requirements-travis.txt
+          pip3 install -e .
+
+      - name: Run the tests
+        run: pytest
+
+      - name: Run coveralls
+        run: make coveralls
