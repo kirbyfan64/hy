@@ -24,11 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip3 install -r requirements-travis.txt
-          pip3 install coveralls
           pip3 install -e .
 
       - name: Run the tests
         run: pytest
-
-      - name: Run coveralls
-        run: coveralls
