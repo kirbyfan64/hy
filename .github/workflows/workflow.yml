@@ -14,13 +14,13 @@ jobs:
           - 'python:3.5'
           - 'python:3.6'
           - 'python:3.7'
-          - 'python:3.8'
+          - 'python:3.8-rc'
           - 'pypy:3.5'
     container: '${{matrix.python}}-slim'
     steps:
       - name: Checkout the source
         uses: actions/checkout@master
-         
+
       - name: Install dependencies
         run: |
           pip3 install -r requirements-travis.txt
