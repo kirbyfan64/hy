@@ -34,12 +34,13 @@ def run_cmd(cmd, stdin_data=None, expect=0, dontwritebytecode=False):
     p = subprocess.Popen(cmd,
                          stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT,
+                         stderr=subprocess.PIPE,
                          universal_newlines=True,
                          shell=False,
                          env=env)
     output = p.communicate(input=stdin_data)
     assert p.wait() == expect
+    print(output[1])
     return output
 
 
