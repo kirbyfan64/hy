@@ -39,8 +39,8 @@ def run_cmd(cmd, stdin_data=None, expect=0, dontwritebytecode=False):
                          shell=False,
                          env=env)
     output = p.communicate(input=stdin_data)
-    assert p.wait() == expect
     print(output[1])
+    assert p.wait() == expect
     return output
 
 
