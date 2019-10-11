@@ -27,4 +27,7 @@ jobs:
           pip3 install -e .
 
       - name: Run the tests
+        # Work around: https://github.com/pypy/pyrepl/issues/8
+        env:
+          TERM: 'linux'
         run: pytest
